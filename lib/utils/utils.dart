@@ -4,6 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
 
 class Utils {
+  static void fieldFocusNode(
+    BuildContext context,
+    FocusNode current,
+    FocusNode nextFocus,
+  ) {
+    current.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
+
   static void flutterToast(String message) {
     Fluttertoast.showToast(msg: message, textColor: Colors.white);
   }
@@ -19,7 +28,7 @@ class Utils {
         backgroundColor: Colors.red,
         reverseAnimationCurve: Curves.easeInOut,
         duration: const Duration(seconds: 3),
-        positionOffset: 20,
+        positionOffset: 50,
         icon: const Icon(Icons.error, color: Colors.white),
       ),
     );

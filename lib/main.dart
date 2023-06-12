@@ -11,9 +11,17 @@ class MVVMStructure extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData(
+        useMaterial3: true,
+        colorSchemeSeed: Colors.green,
+        appBarTheme: const AppBarTheme(
+          centerTitle: true,
+          elevation: 5
+        )
+      ),
       debugShowCheckedModeBanner: false,
-      initialRoute: RoutesName.splash,
+      initialRoute: RoutesName.login,
       onGenerateRoute: Routes.generateRoute,
     );
   }

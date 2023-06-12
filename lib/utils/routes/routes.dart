@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm/utils/routes/routes_name.dart';
-
 import '../../view/home_screen.dart';
-import '../../view/login_screen.dart';
+import '../../view/login_view.dart';
 import '../../view/splash_screen.dart';
 
 class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case RoutesName.home:
-        return MaterialPageRoute(
-          builder: (BuildContext context) => const HomeScreen(),
-        );
-      case RoutesName.splash:
-        return MaterialPageRoute(
-          builder: (BuildContext context) => const SplashScreen(),
-        );
-
       case RoutesName.login:
         return MaterialPageRoute(
-          builder: (BuildContext context) => const LoginScreen(),
+          builder: (BuildContext context) => const LoginView(),
         );
-    }
+
+      }
+
+
 
     // This code will only be reached if none of the above cases match
     return MaterialPageRoute(builder: (_) {
