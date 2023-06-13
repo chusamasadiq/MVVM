@@ -1,15 +1,20 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:mvvm/resources/colors.dart';
 
 class RoundButtonWidget extends StatelessWidget {
   final Color? color;
-  final VoidCallback onPress;
-  final Widget child;
+  final VoidCallback onPressed;
+  final String title;
+  bool loading;
 
-  const RoundButtonWidget({
+  RoundButtonWidget({
     super.key,
     required this.color,
-    required this.onPress,
-    required this.child,
+    required this.onPressed,
+    required this.title,
+    this.loading = false,
   });
 
   @override
@@ -23,8 +28,15 @@ class RoundButtonWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(25),
           ),
         ),
-        onPressed: onPress,
-        child: child,
+        onPressed: onPressed,
+        child: Center(
+          child: loading
+              ? const CircularProgressIndicator()
+              : Text(
+                  title,
+                  style: const TextStyle(color: whiteColor),
+                ),
+        ),
       ),
     );
   }

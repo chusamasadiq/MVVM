@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatelessWidget {
@@ -11,6 +13,7 @@ class TextFieldWidget extends StatelessWidget {
   Widget? suffixIcon;
   dynamic onFieldSubmitted;
   FocusNode? focusNode;
+  TextInputType? keyboardType;
 
   TextFieldWidget({
     super.key,
@@ -24,11 +27,13 @@ class TextFieldWidget extends StatelessWidget {
     this.suffixIcon,
     this.onFieldSubmitted,
     this.focusNode,
+    this.keyboardType,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: keyboardType,
       enabled: enabled,
       validator: onValidator,
       obscureText: obscureText,

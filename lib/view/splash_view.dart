@@ -1,21 +1,19 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:mvvm/utils/routes/routes_name.dart';
-import 'package:mvvm/view/home_screen.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     // TODO: implement initState
-    Timer(const Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushNamed(context, RoutesName.login);
     });
   }
@@ -24,7 +22,10 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SplashScreen'),
+        title: const Text('Welcome to MVVM'),
+      ),
+      body: Center(
+        child: Image.asset('assets/images/mvvm.png'),
       ),
     );
   }

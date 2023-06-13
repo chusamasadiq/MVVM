@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm/resources/colors.dart';
 import 'package:mvvm/resources/components/round_button.dart';
-import 'package:mvvm/utils/colors.dart';
 import '../resources/components/textfield.dart';
 import '../utils/utils.dart';
 
@@ -16,14 +16,28 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _passwordController = TextEditingController();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passwordFocusNode = FocusNode();
-  final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(false);
+  final ValueNotifier<bool> _obscurePassword = ValueNotifier<bool>(true);
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    emailFocusNode.dispose();
+    passwordFocusNode.dispose();
+
+    _obscurePassword.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Login Screen')),
+      appBar: AppBar(
+          title: const Text('Login Screen'), automaticallyImplyLeading: false),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -37,31 +51,50 @@ class _LoginViewState extends State<LoginView> {
               onValidator: null,
               prefixIcon: const Icon(Icons.email),
               onFieldSubmitted: (value) {
-                Utils.fieldFocusNode(context, emailFocusNode, passwordFocusNode);
+                Utils.fieldFocusNode(
+                    context, emailFocusNode, passwordFocusNode);
               },
             ),
             SizedBox(height: screenHeight * 0.02),
-            TextFieldWidget(
-              focusNode: passwordFocusNode,
-              obscureText: _obscurePassword.value,
-              controller: _passwordController,
-              labelText: 'Password',
-              hintText: 'Password',
-              onValidator: null,
-              prefixIcon: const Icon(Icons.lock),
-              suffixIcon: InkWell(
-                onTap: (){
-                  _obscurePassword.value =! _obscurePassword.value;
-                },
-                  child: const Icon(Icons.remove_red_eye)),
+            ValueListenableBuilder(
+              valueListenable: _obscurePassword,
+              builder: (context, value, child) {
+                return TextFieldWidget(
+                  focusNode: passwordFocusNode,
+                  obscureText: _obscurePassword.value,
+                  controller: _passwordController,
+                  labelText: 'Password',
+                  hintText: 'Password',
+                  onValidator: null,
+                  prefixIcon: const Icon(Icons.lock),
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      _obscurePassword.value = !_obscurePassword.value;
+                    },
+                    child: Icon(_obscurePassword.value
+                        ? Icons.visibility_off_outlined
+                        : Icons.visibility),
+                  ),
+                );
+              },
             ),
             SizedBox(height: screenHeight * 0.02),
-            RoundButtonWidget(color: primaryColor, onPress: (){
-              if(_emailController.text.isEmpty && _passwordController.text.isEmpty){
-                Utils.flushBarErrorMessage('Invalid Input', context);
-
-              }
-              }, child: const Text('Login', style: TextStyle(color: Colors.white),))
+            RoundButtonWidget(
+              color: primaryColor,
+              onPressed: () {
+                if (_emailController.text.isEmpty) {
+                  Utils.flushBarErrorMessage('Please enter email', context);
+                } else if (_passwordController.text.isEmpty) {
+                  Utils.flushBarErrorMessage('Please enter password', context);
+                } else if (_passwordController.text.length < 6) {
+                  Utils.flushBarErrorMessage(
+                      'Please enter at least 6 characters', context);
+                } else {
+                  print('api hit');
+                }
+              },
+              title: 'Login',
+            )
           ],
         ),
       ),

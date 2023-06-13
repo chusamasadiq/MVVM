@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mvvm/resources/theme.dart';
 import 'package:mvvm/utils/routes/routes.dart';
 import 'package:mvvm/utils/routes/routes_name.dart';
 
@@ -12,16 +13,9 @@ class MVVMStructure extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.green,
-        appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          elevation: 5
-        )
-      ),
+      theme: myAppTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute: RoutesName.login,
+      initialRoute: RoutesName.splash,
       onGenerateRoute: Routes.generateRoute,
     );
   }

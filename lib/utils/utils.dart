@@ -27,9 +27,24 @@ class Utils {
         padding: const EdgeInsets.all(15),
         backgroundColor: Colors.red,
         reverseAnimationCurve: Curves.easeInOut,
-        duration: const Duration(seconds: 3),
-        positionOffset: 50,
+        duration: const Duration(seconds: 4),
         icon: const Icon(Icons.error, color: Colors.white),
+      ),
+    );
+  }
+
+  static showSnackbar(String message, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: FittedBox(
+          child: Text(
+            message,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.red
+            ),
+          ),
+        ),
       ),
     );
   }
