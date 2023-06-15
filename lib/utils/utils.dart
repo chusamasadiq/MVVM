@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar_route.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:mvvm/resources/colors.dart';
 
 class Utils {
   static void fieldFocusNode(
@@ -36,13 +37,12 @@ class Utils {
   static showSnackbar(String message, BuildContext context) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: FittedBox(
-          child: Text(
-            message,
-            style: const TextStyle(
-              fontSize: 12,
-              color: Colors.red
-            ),
+        backgroundColor: primaryColor,
+        content: Text(
+          message,
+          style: const TextStyle(
+            fontSize: 14,
+            color: Colors.red
           ),
         ),
       ),

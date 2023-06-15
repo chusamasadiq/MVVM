@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:mvvm/utils/routes/routes_name.dart';
 import 'package:mvvm/viewmodel/auth_view_model.dart';
 import 'package:provider/provider.dart';
-
 import '../resources/colors.dart';
 import '../resources/components/round_button.dart';
 import '../resources/components/textfield.dart';
 import '../utils/utils.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
+class RegisterView extends StatefulWidget {
+  const RegisterView({super.key});
 
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<RegisterView> createState() => _RegisterViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   FocusNode emailFocusNode = FocusNode();
@@ -84,32 +82,26 @@ class _LoginViewState extends State<LoginView> {
             ),
             SizedBox(height: screenHeight * 0.02),
             RoundButtonWidget(
-              loading: authViewModel.loading,
-              color: primaryColor,
-              onPressed: () {
-                if (_emailController.text.isEmpty) {
-                  Utils.showSnackbar('Please enter email', context);
-                } else if (_passwordController.text.isEmpty) {
-                  Utils.showSnackbar('Please enter password', context);
-                } else if (_passwordController.text.length < 6) {
-                  Utils.showSnackbar(
-                      'Please enter at least 6 characters', context);
-                } else {
-                  Map data = {
-                    'email': _emailController.toString(),
-                    'password': _passwordController.toString()
-                  };
-                  authViewModel.loginApi(data, context);
-                  print('hit api');
-                }
-              },
-              title: 'Login',
-            ),
-            TextButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, RoutesName.register),
-              child: Text('Sign Up'),
-            )
+                loading: authViewModel.loading,
+                color: primaryColor,
+                onPressed: () {
+                  if (_emailController.text.isEmpty) {
+                    Utils.showSnackbar('Please enter email', context);
+                  } else if (_passwordController.text.isEmpty) {
+                    Utils.showSnackbar('Please enter password', context);
+                  } else if (_passwordController.text.length < 6) {
+                    Utils.showSnackbar(
+                        'Please enter at least 6 characters', context);
+                  } else {
+                    Map data = {
+                      'email': _emailController.toString(),
+                      'password': _passwordController.toString()
+                    };
+                    authViewModel.signUpApi(data, context);
+                    print('hit api');
+                  }
+                },
+                title: 'Sign Up')
           ],
         ),
       ),
