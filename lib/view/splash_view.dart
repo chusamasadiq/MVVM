@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mvvm/utils/routes/routes_name.dart';
+import 'package:mvvm/viewmodel/services/splash_services.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -10,12 +11,12 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  SplashServices splashServices = SplashServices();
+
   @override
   void initState() {
     // TODO: implement initState
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushNamed(context, RoutesName.login);
-    });
+    splashServices.checkAuthentication(context);
   }
 
   @override
